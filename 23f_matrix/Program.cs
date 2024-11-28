@@ -52,6 +52,44 @@ namespace _23f_matrix
 			}
 			// mátrix vége
 		}
+
+		static bool Pukli_e(int i, int j, int[,]m, int N, int M)
+		{
+			if (0 < i && m[i - 1, j] >= m[i, j])
+				return false;
+			if (i < N - 1 && m[i + 1, j] >= m[i, j])
+				return false;
+			if (0 < j && m[i, j - 1] >= m[i, j])
+				return false;
+			if (j<N-1 && m[i, j + 1] >= m[i, j])
+				return false;
+			return true;
+		}
+
+		static void Puklik_szinezese(int[,] m, int N, int M)
+		{
+			for (int i = 0; i < N; i++)
+			{
+				for (int j = 0; j < M; j++)
+				{
+					if (0 <= m[i, j] && m[i, j] < 10)
+					{
+						Console.Write(" ");
+					}
+
+					if (Pukli_e(i, j, m, N, M))
+					{
+						Console.ForegroundColor = ConsoleColor.Red;
+					}
+					Console.Write(m[i, j]);
+
+					Console.ResetColor();
+					Console.Write(" ");
+				}
+				Console.WriteLine();
+			}
+		}
+
 		static (int, int, int[,]) Beolvas(string fajlnev)
 		{
 			int[,] m;
@@ -132,18 +170,21 @@ namespace _23f_matrix
 
 			(int N, int M, int[,] terkep) = Beolvas("terkep.tsv");
 
-			Szűkösen_Kiir(terkep, N, M);
+			//Szűkösen_Kiir(terkep, N, M);
 
-			int legkisebb_ertek = Legkisebb_ertek(terkep, N, M);
+			//int legkisebb_ertek = Legkisebb_ertek(terkep, N, M);
 
-            Console.WriteLine(legkisebb_ertek);
+			//         Console.WriteLine(legkisebb_ertek);
 
-			int vizes_terulet_merete = VizesTeruletMerete(terkep, N, M);
-            Console.WriteLine(vizes_terulet_merete);
+			//int vizes_terulet_merete = VizesTeruletMerete(terkep, N, M);
+			//         Console.WriteLine(vizes_terulet_merete);
 
-			bool vane = Van_e_efolotti(terkep, N, M , 90);
-            Console.WriteLine(vane);
-        }
+			//bool vane = Van_e_efolotti(terkep, N, M , 90);
+			//         Console.WriteLine(vane);
+
+			Puklik_szinezese(terkep, N, M);
+
+		}
 
 		private static bool Van_e_efolotti(int[,] terkep, int n, int m, int ennel)
 		{
